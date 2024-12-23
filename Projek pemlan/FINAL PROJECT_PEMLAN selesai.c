@@ -8,7 +8,7 @@ typedef struct {
     int id;
     char nama[50];
     char jenisKelamin[10];
-    int lamaTahunBekerja;
+    int lamaTahunBekerja; 
 } Pegawai;
 
 
