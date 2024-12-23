@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-// Struktur Data Pegawai
+
 typedef struct {
     int id;
     char nama[50];
@@ -11,7 +11,7 @@ typedef struct {
     int lamaTahunBekerja;
 } Pegawai;
 
-// Prototipe Fungsi
+
 void tambahPegawai(Pegawai *pegawai, int *count);
 void tampilkanPegawai(Pegawai *pegawai, int count);
 void hapusPegawai(Pegawai *pegawai, int *count, int key);
@@ -25,7 +25,7 @@ int main() {
     Pegawai pegawai[100];
     char filename[] = "database_pegawai.txt";
 
-    // Memuat data dari file jika ada
+    
     FILE *file = fopen(filename, "r");
     if (file != NULL) {
         while (fscanf(file, "%d,%49[^,],%9[^,],%d\n", 
@@ -34,7 +34,7 @@ int main() {
                       pegawai[count].jenisKelamin, 
                       &pegawai[count].lamaTahunBekerja) != EOF) {
             count++;
-        }	
+        }
         fclose(file);
         printf("Data berhasil dimuat dari file %s\n", filename);
     }
@@ -102,7 +102,7 @@ void tambahPegawai(Pegawai *pegawai, int *count) {
     scanf("%d", &pegawai[*count].lamaTahunBekerja);
 
     (*count)++;
-    mergeSort(pegawai, 0, *count - 1); // Urutkan data setelah ditambah
+    mergeSort(pegawai, 0, *count - 1); 
     printf("Data pegawai berhasil ditambahkan!\n");
 }
 
@@ -191,3 +191,4 @@ int jumpSearch(Pegawai *pegawai, int count, int key) {
     }
     return -1;
 }
+
