@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -192,3 +191,4 @@ int jumpSearch(Pegawai *pegawai, int count, int key) {
     }
     return -1;
 }
+
