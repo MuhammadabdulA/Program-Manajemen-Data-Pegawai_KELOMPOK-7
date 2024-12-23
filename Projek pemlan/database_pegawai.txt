@@ -1,0 +1,11 @@
+101,Dewi,p,5
+102,Nicholas,l,4
+103,Hans,l,3
+104,Tian,l,7
+105,Yose,p,5
+106,Andrew,L,9
+107,Kiran,L,6
+108,George,L,7
+109,Felia,P,4
+110,Chezia,P,3
+111,aziz,l,3
