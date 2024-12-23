@@ -108,4 +108,88 @@ void tambahPegawai(Pegawai *pegawai, int *count) {
 
 void tampilkanPegawai(Pegawai *pegawai, int count) {
     printf("\n=====================================================================\n");
+printf("|  ID  |     Nama          | Jenis Kelamin | Lama Tahun Bekerja    |\n");
+    printf("=====================================================================\n");
+    for (int i = 0; i < count; i++) {
+        printf("| %4d | %-17s | %-12s | %19d |\n",
+               pegawai[i].id, pegawai[i].nama, pegawai[i].jenisKelamin, pegawai[i].lamaTahunBekerja);
+    }
+    printf("=====================================================================\n");
+}
+
+void hapusPegawai(Pegawai *pegawai, int *count, int key) {
+    int index = jumpSearch(pegawai, *count, key);
+    if (index == -1) {
+        printf("Data dengan ID %d tidak ditemukan!\n", key);
+        return;
+    }
+    for (int i = index; i < *count - 1; i++) {
+        pegawai[i] = pegawai[i + 1];
+    }
+    (*count)--;
+    printf("Data pegawai dengan ID %d berhasil dihapus!\n", key);
+}
+
+void simpanKeDatabase(Pegawai *pegawai, int count, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Gagal menyimpan ke database!\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%d,%s,%s,%d\n", pegawai[i].id, pegawai[i].nama,
+                pegawai[i].jenisKelamin, pegawai[i].lamaTahunBekerja);
+    }
+    fclose(file);
+    printf("Data berhasil disimpan ke file %s\n", filename);
+}
+
+void mergeSort(Pegawai *pegawai, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(pegawai, left, mid);
+        mergeSort(pegawai, mid + 1, right);
+        merge(pegawai, left, mid, right);
+    }
+}
+
+void merge(Pegawai *pegawai, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    Pegawai L[n1], R[n2];
+
+    for (int i = 0; i < n1; i++) L[i] = pegawai[left + i];
+    for (int i = 0; i < n2; i++) R[i] = pegawai[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i].id <= R[j].id) {
+            pegawai[k++] = L[i++];
+        } else {
+            pegawai[k++] = R[j++];
+        }
+    }
+
+    while (i < n1) pegawai[k++] = L[i++];
+    while (j < n2) pegawai[k++] = R[j++];
+}
+
+int jumpSearch(Pegawai *pegawai, int count, int key) {
+    int step = sqrt(count);
+    int prev = 0;
+
+    while (pegawai[step - 1].id < key && step < count) {
+        prev = step;
+        step += sqrt(count);
+        if (prev >= count) return -1;
+    }
+
+    for (int i = prev; i < step && i < count; i++) {
+        if (pegawai[i].id == key) return i;
+    }
+    return -1;
+}
+
 
